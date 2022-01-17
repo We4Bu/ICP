@@ -45,7 +45,7 @@ actor {
         var all: List.List<Message> = List.nil();
         for (id in Iter.fromList(myFollows)) {
             let canister: Blog = actor(Principal.toText(id));
-            let msgs = await canister.posts();
+            let msgs = await canister.posts(since);
             for (m in Iter.fromArray(msgs)) {
                 if (m.1 > since) {
                     all := List.push(m, all);
