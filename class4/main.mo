@@ -11,8 +11,8 @@ actor {
         follow: shared(Principal) -> async ();
         follows: shared query () -> async [Principal];
         post: shared(Text) -> async ();
-        posts: shared query () -> async [Message];
-        timeline: shared() -> async [Message];
+        posts: shared query (Time.Time) -> async [Message];
+        timeline: shared(Time.Time) -> async [Message];
     };
 
     stable var myFollows: List.List<Principal> = List.nil();
