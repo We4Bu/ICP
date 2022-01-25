@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>ICPBlog</title>
+  <base href="/" />
+  <link rel="icon" href="favicon.ico" />
+  <link type="text/css" rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+  <main>
+    <p>
+      <label for="name"> <h3>Set your name: </h3> </label>
+    </p>
+    <p>
+      <input id="name" type="text" />
+      <button id="submit_name"> Submit </button>
+    </p>
+    <p>
+      <label for="message"> <h3> What do you want to post? </h3> </label>
+    </p>
+    <p>
+      <textarea id="message" rows="5" cols="45"> </textarea>
+      <button id="submit_post"> Post </button>
+    </p>
+    
+    <h3> My posts (time -> post) </h3>
+    <section id="posts"> </section>
+    <h3> My follows </h3>
+    <section id="follows"> </section>
+
+    <p> ----------------------------------------------------------- </p>
+    <section id="other_posts"> </section>
+
+    <h3> Timeline (author -> time -> post) </h3>
+    <section id="timeline"> </section>
+    <button id="test"> </button>
+  </main>
+</body>
+
+</html>
