@@ -1,0 +1,53 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath,amsfonts,amssymb}
+
+\geometry{scale=0.8}
+
+\begin{document}
+
+\section*{3}
+We denote the $f(x, k)$ as the profit of selecting $k$th schedule, $f(x)$ as the profit for all schedules. This has been fomulated in problem (1). Then the model as maximum value of risk is
+\begin{align}
+\max_x \quad & t \nonumber \\
+s.t. \quad & f(x, k) \ge t  \text{ for some } k \nonumber \\
+& P(f(x) \le t) \le 1 - \alpha \nonumber
+\end{align}
+Now the problem is how to formulate $P(f(x) < t) \le 1 - \alpha$. We suppose each schedule has equal contribution. Thus we can sort $f(x)$. The condition is equivalent to there are at least $K(1 - \alpha)$ schedules whose $f(x) \ge t$. Denote $\epsilon_i = 1$ if $f(x, i) \ge t$ otherwise $\epsilon_i = 0$. Then the model becomes:
+ \begin{align}
+\max_x \quad & t \nonumber \\
+s.t. \quad & f(x, k) \ge t  \text{ for some } k \nonumber \\
+& \sum_{i=1}^K \epsilon_i \ge K(1 - \alpha) \nonumber
+\end{align}
+
+\section*{5} 
+The variables that we ant to optimize are $x_1, x_2, x_3, x_4$ and $y_1, y_2, y_3$. $y$ is the indicator for schedule selection. If we choose $i$th schedule, we set $y_i = 1$, otherwise we set $y_i = 0$. The profit of first four periods is
+\begin{equation}
+\sum_{k=1}^{3} \sum_{i=1}^{4} \frac{1}{2} x_i (p_{k, i} - 90) \nonumber
+\end{equation}
+
+Because we don't know the prices of reset periods, we use $\frac{1}{2} x (0 - 90)$ to estimate the profit. Then the model for $x$ is
+\begin{align}
+\max_{x} & \sum_{k=1}^{3} \frac{1}{3} \sum_{i=1}^{4} \frac{1}{2} x_i (p_{k, i} - 90) - \sum_{j=1}^{3} 50C_{j, j+1} \nonumber \\
+s.t. \quad & x_1 \le 50 \nonumber \\ 
+& 25 \le x_i \le 180 \text{ if } x_i > 0 \nonumber \\
+& -80 \le x_{i+1} - x_i \le 50 \nonumber 
+\end{align}
+The model for $y$ is
+\begin{align}
+\max_y & \sum_{k=1}^{3} y_k \sum_{i=5}^{18} \frac{1}{2} x_{k, i} (0 - 90) \nonumber \\
+s.t. \quad & y_i \in \{ 0, 1 \} \nonumber \\
+& y_1 + y_2 + y_3 = 1 \nonumber
+\end{align}
+
+\section*{6}
+ We develop the rule using training data. Given $p_1, p_2, p_3, p_4$, we want to predict $p_i$ for $i > 4$. This is difficult. Instead, we predict the mean and standard deviation of the rest prices. 
+ \begin{equation}
+ \mu_i, \sigma_i = f(p_1, p_2, p_3, p_4), \quad 5 \le i \le 18 \nonumber
+ \end{equation}
+ We use deep learning or linear regression to do this. Based on mean and standard deviation, we can sample $T$ instances of prices $p_{t, i} = \mu_i + \sigma_i \mathcal{N}(0, 1)$. Then the cost for $k$th schedule is
+ \begin{equation}
+ Cost(k) = \frac{1}{T} \sum_{t=1}^{T} \sum_{i=5}^{18} \frac{1}{2} x_{k, i} (p_{t, i} - 90) \nonumber
+ \end{equation}
+ Then we select the schedule which minimize this cost.
+\end{document}
